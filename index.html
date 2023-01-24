@@ -40,60 +40,61 @@
     font-style: italic;
   "
 >
-<!-- Background image -->
-<nav class="navbar navbar-expand-lg navbar-light bg-grey">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" style="color: white">Nonthachai Plodthong</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex" id="searchForm">
-                <input class="form-control me-2" type="search" placeholder="Title (case sensitive)" id="title"
-                       aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-                &nbsp;
-                &nbsp;
-                <button class="btn btn-secondary" id="clearForm" type="button">Clear</button>
-            </form>
+    <!-- Background image -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-grey">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html" style="color: white">Nonthachai Plodthong</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="d-flex" id="searchForm">
+                    <input class="form-control me-2" type="search" placeholder="Title (case sensitive)" id="title"
+                           aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    &nbsp;
+                    &nbsp;
+                    <button class="btn btn-secondary" id="clearForm" type="button">Clear</button>
+                </form>
+            </div>
         </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <!-- HTML table consisting of 5 columns: Year, Title, Plot, Rating and Run Time. -->
-            <table class="table" id="moviesTable">
-                <thead>
-                <tr style="color: white">
-                    <th>Year</th>
-                    <th>Title</th>
-                    <th>Plot</th>
-                    <th>Rating</th>
-                    <th>Run Time</th>
-                </tr>
-                </thead>
-                <tbody style="color: floralwhite">
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <!-- HTML table consisting of 5 columns: Year, Title, Plot, Rating and Run Time. -->
+                <table class="table" id="moviesTable">
+                    <thead>
+                    <tr style="color: white">
+                        <th>Year</th>
+                        <th>Title</th>
+                        <th>Plot</th>
+                        <th>Rating</th>
+                        <th>Run Time</th>
+                    </tr>
+                    </thead>
+                    <tbody style="color: floralwhite">
 
-                </tbody>
-            </table>
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" id="p-page">Previous</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" id="cur-p">Current</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" id="next-p">Next</a>
-                    </li>
-                </ul>
-            </nav>
+                    </tbody>
+                </table>
+                <nav aria-label="...">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" id="p-page">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" id="cur-p">Current</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" id="next-p">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 <div class="modal fade" tabindex="-1" id="detailsModal"
@@ -104,7 +105,12 @@
                 <h5 class="modal-title" id="modal-title"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body" style="display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                flex-direction: column;
+                                z-index: 2;
+                                margin-top: 1rem;"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>

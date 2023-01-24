@@ -7,9 +7,9 @@ const loadMovieData = (title = null) => {
     let qp = title ? `${endpoint}/api/movies?page=${page}&perPage=${perPage}&title=${title}` :
         `${endpoint}/api/movies?page=${page}&perPage=${perPage}`;
 
-    if(title){
+    if (title) {
         document.querySelector(".pagination").classList.add("d-none");
-    }else{
+    } else {
         document.querySelector(".pagination").classList.remove("d-none");
     }
     fetch(qp).then((res) => res.json()).then((data) => {
@@ -36,15 +36,19 @@ const loadMovieData = (title = null) => {
                 fetch(`${endpoint}/api/movies/${clicked}`).then((res) => res.json()).then((data) => {
                     document.querySelector(`#detailsModal .modal-title`).innerHTML = data.title;
                     document.querySelector(`#detailsModal .modal-body`).innerHTML = `
-                        <img src="${data.poster}" style="{justify-content: center} alt="poster"/> 
-                        <p>Director: ${data.directors.join(', ')}</p> 
-                        <p>Fullplot: ${data.fullplot}</p> 
-                        <p>Cast: ${data.cast ? data.cast.join(', ') : 'No data'}</p> 
-                        <p>Nominated: ${data.awards.text}</p> 
-                        <p>IMDB RATING: ${data.imdb.rating}</p>
-                        <p>IMDB VOTES: ${data.imdb.votes}</p>;`
+                        <img src="${data.poster}" style="
+                                width: 300px;
+                         height: 400px; 
+                         " alt="poster"/> 
+                        <br/>
+                        <p><strong><hr/>Director: </strong> ${data.directors.join(', ')}</p> 
+                        <p><strong>Fullplot: </strong>${data.fullplot}</p> 
+                        <p><strong>Cast: </strong>${data.cast ? data.cast.join(', ') : 'No data'}</p> 
+                        <p><strong>Nominated: </strong>${data.awards.text}</p> 
+                        <p><strong>IMDB RATING: </strong>${data.imdb.rating}</p>
+                        <p><strong>IMDB VOTES: </strong>${data.imdb.votes}</p>`
                     $(`#detailsModal`).modal(`show`);
-                    $('.modal-footer').click(function(){
+                    $('.modal-footer').click(function () {
                         $('#detailsModal').modal('hide');
                     });
                 })
