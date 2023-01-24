@@ -22,76 +22,77 @@ const MoviesDB = require("./modules/moviesDB");
 const {response} = require("express");
 const db = new MoviesDB();
 app.use(bodyParser.json());
-app.use(express.json());
 app.use(cors());
-
+app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.json({message: "API Listening"});
-})
-
-app.post('/api/movies', (require, response) => {
-    db.addNewMovie(require.body).then((data) => {
-        response.status(201).json(data);
-    }).catch(() => {
-        response.status(500).json({message: "Fail to add your movie"});
-    })
-})
-
-app.get("/api/movies", (require, response) => {
-    let queryN = {};
-    if (require.query.title) {
-        queryN = db.getAllMovies(
-            //page=1&perPage=5&title=The Avengers
-            require.query.page,
-            require.query.perPage,
-            require.query.title
-        )
-    } else {
-        queryN = db.getAllMovies(require.query.title);
-    }
-
-    queryN.then((data) => {
-        if (data) {
-            response.json(data);
-        } else {
-            response.json({message: "No movie in the database"});
-        }
-    }).catch(() => {
-        response.status(500).json({message: "error"});
-    });
+    res.json({ message: 'API Listening' });
 });
 
-app.get("/api/movies/:id", (require, response) => {
-    db.getMovieById(require.params.id).then((data) => {
-        if (data) {
-            response.json(data);
-        } else {
-            response.json({message: "No movie in the database"});
-        }
-    }).catch(() => {
-        response.status(500).json({message: "Cannot proceed your request."});
-    })
+app.post("/api/movies", (req, res) => {
+    res.status(201).json(db.addNewMovie(req.body))
 })
 
-app.put("api/movies/:id", (require, response) => {
-    db.updateMovieById(require.body, require.params.id).then(() => {
-        response.json({message: "Success!"});
-    }).catch(() => {
-        response.status(500).json({message: "Fail sorry."});
-    })
-})
+app.get("/api/movies", function (req, res) {
+    let queryPromise = null;
 
-app.delete("api/movies/:id", (require, response) => {
-    db.deleteMovieById(require.params.id).then(() => {
-        response.status(201).json({message: "Delete complete"});
-    }).catch(() => {
-        response.status(500).json({message: "Failed to delete"});
+    if (req.query.title) {
+        queryPromise = db.getAllMovies(
+            req.query.page,
+            req.query.perPage,
+            req.query.title
+        );
+    } else {
+        queryPromise = db.getAllMovies(req.query.page, req.query.perPage);
+    }
+
+    queryPromise
+        .then((data) => {
+            if (data) res.json(data);
+            else res.json({ errorMessage: "No Movies" });
+        })
+        .catch((err) => {
+            res.status(500).json({ errorMessage: err });
+        });
+});
+
+app.get("/api/movies/:id", (req, res) => {
+    db.getMovieById(req.params.id).then((data) => {
+        res.status(201).json(data);
     })
-})
-// Resource not found (this should be at the end)
+        .catch((err) => {
+            res.status(500).json({
+                message: 'Something went wrong, please try again ${err}'
+            });
+        });
+});
+
+app.put("/api/movies/:id", (req, res) => {
+    db
+        .updateMovieById(req.body, req.params.id)
+        .then((data) => {
+            res.status(204).json({message: data});
+        })
+        .catch((err) => {
+            res.status(500).json({ message: 'Something went wrong, please try again ${err}' });
+        });
+});
+
+app.delete("/api/movies/:id", (req, res) => {
+    db
+        .deleteMovieById(req.params.id)
+        .then((data) => {
+            res.status(201).json( {message: data });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: 'Something went wrong, please try again ${err}'
+            });
+        });
+});
+
 app.use((req, res) => {
-    res.status(404).send('Resource not found');
+    res.status(204).send("Resource not found");
 });
 
 // Tell the aspp to start listening for requests
