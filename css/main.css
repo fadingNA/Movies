@@ -1,1 +1,14 @@
+body{
+    background-color: #46364a;
+}
 #moviesTable tr:hover{ cursor:pointer; }
+
+#detailsModal{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    margin-top: 1rem;
+}
